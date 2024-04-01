@@ -4,6 +4,7 @@ Created on Tue Mar 26 13:09:18 2024
 
 @author: cianr
 """
+# %%
 import pyarrow.parquet as pq
 import matplotlib.pyplot as plt
 
@@ -128,3 +129,4 @@ X_test_scale = preprocessing.scale(X_test)
 print("Datapoints in Training set:",len(X_train))
 print("Datapoints in validation set:",len(X_val))
 print("Datapoints in Test set:",len(X_test))
+# %%

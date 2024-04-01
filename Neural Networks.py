@@ -55,10 +55,15 @@ trips = trips.dropna()
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 from sklearn.metrics import classification_report
+import pandas as pd
 
 # Dropping columns not used in training. Datetime objects dont work in training, use tip_hour instead. 
 # 'store_and_fwd_flag' says whether information was at some point stored on onboard computer or not. Not important for training. 
 trips_without_dt_or_str = trips.drop(columns=['tpep_pickup_datetime', 'tpep_dropoff_datetime', 'store_and_fwd_flag'])
+
+# Dataset is too large to work with, so take a random smaller sample
+sample_size = 50000
+trips_without_dt_or_str = trips_without_dt_or_str.sample(n = sample_size)
 
 X = trips_without_dt_or_str.drop('tip_amount', axis = 1)
 Y = trips_without_dt_or_str['tip_amount']
@@ -91,10 +96,10 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 
 #First a general model
-train_logreg = LogisticRegression(random_state=0,max_iter = 200).fit(X_train_scale,Y_train)
+train_logreg = LogisticRegression(random_state=0,max_iter = 100).fit(X_train_scale,Y_train)
 
 # Train a general Neural Network
-train_nn = MLPClassifier()
+train_nn = MLPClassifier(max_iter = 100)
 
 train_nn.fit(X_train_scale, Y_train)
 
